@@ -4,8 +4,9 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 }
-
 const aspect_ratio = sizes.width / sizes.height
+
+const canvas = document.querySelector(".webGL") as HTMLCanvasElement
 
 const scene = new THREE.Scene()
 const group = new THREE.Group()
@@ -18,3 +19,8 @@ scene.add(group)
 
 // Camera
 const camera = new THREE.PerspectiveCamera(75, aspect_ratio)
+camera.position.z = 3
+
+const renderer = new THREE.WebGLRenderer({ canvas })
+renderer.setSize(sizes.width, sizes.height)
+renderer.render(scene, camera)
