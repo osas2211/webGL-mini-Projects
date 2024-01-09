@@ -1,4 +1,5 @@
 import * as THREE from "three"
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 let sizes = {
   width: window.innerWidth,
@@ -41,7 +42,17 @@ const camera = new THREE.PerspectiveCamera(75, aspect_ratio)
 camera.position.z = 3
 scene.add(camera)
 
+const orbitConrols = new OrbitControls(camera, canvas)
+orbitConrols.enableDamping = true
+
 const renderer = new THREE.WebGLRenderer({ canvas })
 renderer.setSize(sizes.width, sizes.height)
 
-renderer.render(scene, camera)
+const animate = () => {
+  window.requestAnimationFrame(animate)
+  orbitConrols.update()
+
+  renderer.render(scene, camera)
+}
+
+animate()
