@@ -48,6 +48,7 @@ debugObject.spin = () => {
     gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 });
 };
 gui.add(debugObject, "subdivision", 3, 20, 1).onFinishChange(() => {
+    mesh.geometry.dispose();
     mesh.geometry = new THREE.BoxGeometry(1, 1, 1, debugObject.subdivision, debugObject.subdivision, debugObject.subdivision);
 });
 gui.add(debugObject, "spin");
