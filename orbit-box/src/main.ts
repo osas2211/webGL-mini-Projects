@@ -3,7 +3,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import GUI from "lil-gui"
 import gsap from "gsap"
 
-const gui = new GUI()
+const gui = new GUI({
+  width: 300,
+  title: "My First Debug UI",
+})
 const debugObject: { spin?: () => void; subdivision?: number } = {}
 debugObject.subdivision = 3
 // Define Sizes and Responsiveness
@@ -51,7 +54,6 @@ scene.add(group)
 
 gui.add(mesh.position, "y", -3, 3, 0.01).name("elevation")
 gui.add(material, "wireframe").name("wireframe")
-gui.addColor(material, "color").name("color")
 gui.add(mesh, "visible").name("visible")
 debugObject.spin = () => {
   gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 })
@@ -68,6 +70,9 @@ gui.add(debugObject, "subdivision", 3, 20, 1).onFinishChange(() => {
   )
 })
 gui.add(debugObject, "spin")
+
+const colorTweaks = gui.addFolder("Colors")
+colorTweaks.addColor(material, "color").name("color")
 
 // Add Camera
 const camera = new THREE.PerspectiveCamera(75, aspect_ratio)
